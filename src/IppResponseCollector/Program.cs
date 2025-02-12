@@ -31,6 +31,11 @@ await rootCommand.InvokeAsync(args);
 
 static async Task CollectResponse(Uri endpoint, FileInfo? outputFile)
 {
+    if (!endpoint.IsAbsoluteUri || (!endpoint.Scheme.Equals("ipp", StringComparison.OrdinalIgnoreCase) && !endpoint.Scheme.Equals("ipps", StringComparison.OrdinalIgnoreCase)))
+    {
+        Console.WriteLine("WARNING: You did not specify ipp or ipps as protocol. Some printers might require you to explicitly specify the correct protocol to send meaningful responses.\n");
+    }
+
     using var ms = new MemoryStream();
     var ipp = new IppProtocol();
 
@@ -73,13 +78,14 @@ static async Task CollectResponse(Uri endpoint, FileInfo? outputFile)
 
 static HttpRequestMessage CreateHttpRequestMessage(Uri printer)
 {
-    // source: https://github.com/danielklecha/SharpIppNext/blob/a0b838d26fb715a45a693c4ffb187b1892e473ba/SharpIpp/SharpIppClient.cs#L175-L185
-    var isSecured = printer.Scheme.Equals("https", StringComparison.OrdinalIgnoreCase)
-        || printer.Scheme.Equals("ipps", StringComparison.OrdinalIgnoreCase);
-    var uriBuilder = new UriBuilder(printer)
+    // adapted from: https://github.com/danielklecha/SharpIppNext/blob/a0b838d26fb715a45a693c4ffb187b1892e473ba/SharpIpp/SharpIppClient.cs#L175-L185
+    var isSecured = printer.IsAbsoluteUri
+        && (printer.Scheme.Equals("https", StringComparison.OrdinalIgnoreCase)
+            || printer.Scheme.Equals("ipps", StringComparison.OrdinalIgnoreCase));
+    var uriBuilder = new UriBuilder(printer.ToString())
     {
         Scheme = isSecured ? "https" : "http",
-        Port = printer.Port == -1 ? 631 : printer.Port,
+        Port = (!printer.IsAbsoluteUri || printer.Port == -1) ? 631 : printer.Port,
     };
 
     return new HttpRequestMessage(HttpMethod.Post, uriBuilder.Uri)
