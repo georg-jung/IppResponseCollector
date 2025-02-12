@@ -3,6 +3,10 @@
 A simple tool to save a printer's raw responses to `GetPrinterAttributes` requests via [Internet Printing Protocol (IPP)](https://en.wikipedia.org/wiki/Internet_Printing_Protocol).
 This tool is build using [SharpIppNext](https://github.com/danielklecha/SharpIppNext/) and uses IPP Version 1.1.
 
+## Download
+
+The latest release is available from [GitHub Releases](https://github.com/georg-jung/IppResponseCollector/releases/latest). Currently, a standalone Windows .exe build is provided.
+
 ## Usage
 
 ```log
