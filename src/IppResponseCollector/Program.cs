@@ -1,9 +1,4 @@
 using System.CommandLine;
-using System.Reflection;
-using SharpIpp;
-using SharpIpp.Mapping;
-using SharpIpp.Mapping.Profiles;
-using SharpIpp.Models;
 using SharpIpp.Protocol;
 using SharpIpp.Protocol.Models;
 
