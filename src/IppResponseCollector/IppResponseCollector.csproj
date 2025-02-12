@@ -1,10 +1,25 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-  </PropertyGroup>
 
+    <PublishAot>true</PublishAot>
+    <InvariantGlobalization>true</InvariantGlobalization>
+
+    <!-- since .NET 8 locked mode and AoT in combination would require the packages.lock.json file to be
+         compatible with/created the specifc .NET SDK version that is used to compile/restore e.g. restoring
+         in locked mode does not work with 8.0.6 if the lock file was created by 8.0.5; this is painful. -->
+    <RestorePackagesWithLockFile>false</RestorePackagesWithLockFile>
+    <RestoreLockedMode>false</RestoreLockedMode>
+
+    <!-- Set the StripSymbols property to true to produce the debug information in a separate .dbg file and
+         exclude it from the native binary on Linux. (This property has no effect on Windows.) -->
+    <StripSymbols>true</StripSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="SharpIppNext" />
+    <PackageReference Include="System.Commandline" />
+  </ItemGroup>
 </Project>
