@@ -5,7 +5,7 @@ This tool is build using [SharpIppNext](https://github.com/danielklecha/SharpIpp
 
 ## Download
 
-The latest release is available from [GitHub Releases](https://github.com/georg-jung/IppResponseCollector/releases/latest). Currently, a standalone Windows .exe build is provided.
+The latest release is available from [GitHub Releases](https://github.com/georg-jung/IppResponseCollector/releases/latest). Currently, a standalone Windows .exe build as well as a Linux binary are provided.
 
 ## Usage
 
