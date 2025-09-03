@@ -20,7 +20,7 @@ jobs:
         fetch-depth: 0 # avoid shallow clone so nbgv can do its work.
 
     - name: Setup dotnet
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v5
       with:
         dotnet-version: 9.x # `global-json-file: global.json` would install the exact version without considering roll-forward, see https://github.com/actions/setup-dotnet/pull/481
 
@@ -45,7 +45,7 @@ jobs:
         fetch-depth: 0 # avoid shallow clone so nbgv can do its work.
 
     - name: Setup dotnet
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v5
       with:
         dotnet-version: 9.x # `global-json-file: global.json` would install the exact version without considering roll-forward, see https://github.com/actions/setup-dotnet/pull/481
 
