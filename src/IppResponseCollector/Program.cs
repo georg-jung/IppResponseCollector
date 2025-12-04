@@ -19,9 +19,9 @@ rootCommand.Add(outputOption);
 
 rootCommand.SetAction(async (parseResult) =>
 {
-    var endpoint = parseResult.GetValue(endpointArgument);
+    var endpoint = parseResult.GetValue(endpointArgument)!; // Required argument, guaranteed non-null
     var outputFile = parseResult.GetValue(outputOption);
-    await CollectResponse(endpoint!, outputFile);
+    await CollectResponse(endpoint, outputFile);
 });
 
 var parseResult = rootCommand.Parse(args);
