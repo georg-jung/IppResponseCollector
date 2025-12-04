@@ -2,27 +2,30 @@ using System.CommandLine;
 using SharpIpp.Protocol;
 using SharpIpp.Protocol.Models;
 
-var endpointArgument = new Argument<Uri>(
-    "ipp-endpoint",
-    "The URI of the IPP endpoint to query. E.g. ipp://192.168.1.2:631");
-
-var outputOption = new Option<FileInfo?>(
-    name: "--output",
-    description: "The file path to save the raw response to.");
-outputOption.AddAlias("-o");
-
-var rootCommand = new RootCommand("Dumps the raw response of a GetPrinterAttributes request to the given IPP endpoint.")
+var endpointArgument = new Argument<Uri>("ipp-endpoint")
 {
-    endpointArgument,
-    outputOption,
+    Description = "The URI of the IPP endpoint to query. E.g. ipp://192.168.1.2:631",
 };
 
-rootCommand.SetHandler(
-    CollectResponse,
-    endpointArgument,
-    outputOption);
+var outputOption = new Option<FileInfo?>("--output")
+{
+    Description = "The file path to save the raw response to.",
+};
+outputOption.Aliases.Add("-o");
 
-await rootCommand.InvokeAsync(args);
+var rootCommand = new RootCommand("Dumps the raw response of a GetPrinterAttributes request to the given IPP endpoint.");
+rootCommand.Add(endpointArgument);
+rootCommand.Add(outputOption);
+
+rootCommand.SetAction(async (parseResult) =>
+{
+    var endpoint = parseResult.GetValue(endpointArgument);
+    var outputFile = parseResult.GetValue(outputOption);
+    await CollectResponse(endpoint!, outputFile);
+});
+
+var parseResult = rootCommand.Parse(args);
+await parseResult.InvokeAsync();
 
 static async Task CollectResponse(Uri endpoint, FileInfo? outputFile)
 {
