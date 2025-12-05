@@ -6,7 +6,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="SharpIppNext" Version="2.0.0" />
-    <PackageVersion Include="System.Commandline" Version="2.0.0-beta4.22272.1" />
+    <PackageVersion Include="System.Commandline" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup>
     <GlobalPackageReference Include="Nerdbank.GitVersioning" Version="3.7.115" />
