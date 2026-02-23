@@ -24,7 +24,7 @@ jobs:
       with:
         dotnet-version: 9.x # `global-json-file: global.json` would install the exact version without considering roll-forward, see https://github.com/actions/setup-dotnet/pull/481
 
-    - uses: dotnet/nbgv@v0.4
+    - uses: dotnet/nbgv@v0.5
       id: nbgv
 
     - name: Publish
@@ -49,7 +49,7 @@ jobs:
       with:
         dotnet-version: 9.x # `global-json-file: global.json` would install the exact version without considering roll-forward, see https://github.com/actions/setup-dotnet/pull/481
 
-    - uses: dotnet/nbgv@v0.4
+    - uses: dotnet/nbgv@v0.5
       id: nbgv
 
     - name: Publish
