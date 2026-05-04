@@ -5,6 +5,24 @@ using SharpIpp.Protocol.Models;
 var endpointArgument = new Argument<Uri>("ipp-endpoint")
 {
     Description = "The URI of the IPP endpoint to query. E.g. ipp://192.168.1.2:631",
+    CustomParser = result =>
+    {
+        if (result.Tokens.Count != 1)
+        {
+            result.AddError("Expected exactly one printer URI.");
+            return null!;
+        }
+
+        var value = result.Tokens[0].Value;
+
+        if (!Uri.TryCreate(value, UriKind.Absolute, out var uri))
+        {
+            result.AddError($"Invalid URI: '{value}'.");
+            return null!;
+        }
+
+        return uri;
+    },
 };
 
 var outputOption = new Option<FileInfo?>("--output")
